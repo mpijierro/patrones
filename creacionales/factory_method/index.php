@@ -1,8 +1,16 @@
 <?php
 
-class BmwFactory
+
+interface CreatorVehicle
 {
-    public function createVehicle($vehicle)
+
+    public function makeVehicle($vehicle);
+}
+
+
+class BmwFactory implements CreatorVehicle
+{
+    public function makeVehicle($vehicle)
     {
 
         if ($vehicle == 'car') {
@@ -16,6 +24,25 @@ class BmwFactory
     }
 
 }
+
+class HondaFactory implements CreatorVehicle
+{
+    public function makeVehicle($vehicle)
+    {
+
+        if ($vehicle == 'car') {
+            return new HondaCar();
+        } elseif ($vehicle == 'motorbike') {
+            return new HondaCar();
+        }
+
+        throw new InvalidArgumentException(sprintf("Type %s not found", $vehicle));
+
+    }
+
+}
+
+//
 
 interface Vehicle
 {
@@ -70,18 +97,64 @@ class BmwMotorbike implements Vehicle
 }
 
 
+class HondaCar implements Vehicle
+{
+
+    public function name()
+    {
+        return 'Honda Civic';
+    }
+
+    public function speed()
+    {
+        return 1900;
+    }
+
+    public function oilConsume()
+    {
+        return 7;
+    }
+
+}
+
+
+class HondaMotorbike implements Vehicle
+{
+
+    public function name()
+    {
+        return 'CBR 600';
+    }
+
+    public function speed()
+    {
+        return 269;
+    }
+
+    public function oilConsume()
+    {
+        return 6;
+    }
+
+}
+
+
 echo "<br>TEST ABSTRACT FACTORY";
 echo "<br>";
 $bmwFactory = new BmwFactory();
 
-$bmwCar = $bmwFactory->createVehicle('car');
+$bmwCar = $bmwFactory->makeVehicle('car');
 echo "<br>Name: " . $bmwCar->name();
 echo "<br>Speed: " . $bmwCar->speed();
 echo "<br>Oil consume: " . $bmwCar->oilConsume();
-$bmwCar = $bmwFactory->createVehicle('motorbike');
+$bmwCar = $bmwFactory->makeVehicle('motorbike');
 echo "<br>Name: " . $bmwCar->name();
 echo "<br>Speed: " . $bmwCar->speed();
 echo "<br>Oil consume: " . $bmwCar->oilConsume();
 
-
+$hondaFactory = new HondaFactory();
+$hondaCar = $hondaFactory->makeVehicle('car');
+echo "<br>Name: " . $hondaCar->name();
+echo "<br>Speed: " . $hondaCar->speed();
+echo "<br>Oil consume: " . $hondaCar->oilConsume();
 
