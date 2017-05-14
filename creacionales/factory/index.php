@@ -1,14 +1,8 @@
 <?php
 
-interface VehicleFactory
+class BmwFactory
 {
-    public function createCar();
 
-    public function createMotorbike();
-}
-
-class BmwFactory implements VehicleFactory
-{
     public function createCar()
     {
         return new BmwCar();
@@ -20,21 +14,6 @@ class BmwFactory implements VehicleFactory
     }
 
 }
-
-class HondaFactory implements VehicleFactory
-{
-    public function createCar()
-    {
-        return new HondaCar();
-    }
-
-    public function createMotorbike()
-    {
-        return new HondaMotorbike();
-    }
-
-}
-
 
 interface Vehicle
 {
@@ -88,46 +67,6 @@ class BmwMotorbike implements Vehicle
 
 }
 
-class HondaCar implements Vehicle
-{
-
-    public function name()
-    {
-        return 'Honda Civic';
-    }
-
-    public function speed()
-    {
-        return 1900;
-    }
-
-    public function oilConsume()
-    {
-        return 7;
-    }
-
-}
-
-
-class HondaMotorbike implements Vehicle
-{
-
-    public function name()
-    {
-        return 'CBR 600';
-    }
-
-    public function speed()
-    {
-        return 269;
-    }
-
-    public function oilConsume()
-    {
-        return 6;
-    }
-
-}
 
 echo "<br>TEST ABSTRACT FACTORY";
 echo "<br>";
@@ -135,6 +74,12 @@ $bmwFactory = new BmwFactory();
 
 $bmwCar = $bmwFactory->createCar();
 echo "<br>Name: " . $bmwCar->name();
+echo "<br>Speed: " . $bmwCar->speed();
+echo "<br>Oil consume: " . $bmwCar->oilConsume();
+$bmwCar = $bmwFactory->createMotorbike();
 echo "<br>Name: " . $bmwCar->name();
+echo "<br>Speed: " . $bmwCar->speed();
+echo "<br>Oil consume: " . $bmwCar->oilConsume();
+
 
 
